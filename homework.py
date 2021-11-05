@@ -57,7 +57,8 @@ class Training:
         speed = self.get_mean_speed()
         calories = self.get_spent_calories()
 
-        return InfoMessage(self.__class__.__name__, self.duration, dist, speed, calories)
+        return InfoMessage(self.__class__.__name__, self.duration,
+                           dist, speed, calories)
 
 
 class Running(Training):
@@ -71,13 +72,11 @@ class Running(Training):
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
-        # Формула расчета -> (18 * средняя_скорость - 20) * вес_спортсмена / M_IN_KM * время_тренировки_в_минутах
-
         coeff_calorie_1: int = 18
         coeff_calorie_2: int = 20
         time_in_minutes = self.duration * 60
-        return (coeff_calorie_1 * self.get_mean_speed() - coeff_calorie_2) * self.weight / self.M_IN_KM \
-            * time_in_minutes
+        return (coeff_calorie_1 * self.get_mean_speed() - coeff_calorie_2)\
+            * self.weight / self.M_IN_KM * time_in_minutes
 
 
 class SportsWalking(Training):
@@ -92,14 +91,14 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        # формула расчета -> (0.035 * вес + (средняя_скорость**2 // рост) * 0.029 * вес) * время_тренировки_в_минутах
         coeff_calorie_1: float = 0.035
         coeff_calorie_2: float = 0.029
         min_in_hour: int = 60
         time_in_min = self.duration * min_in_hour
         speed = self.get_mean_speed()
         calories_spent = (coeff_calorie_1 * self.weight +
-                          (speed**2 // self.height) * coeff_calorie_2 * self.weight) * time_in_min
+                          (speed**2 // self.height) * coeff_calorie_2
+                          * self.weight) * time_in_min
         return calories_spent
 
 
@@ -123,17 +122,15 @@ class Swimming(Training):
         return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
-        # формула расчета -> длина_бассейна * count_pool / M_IN_KM / время_тренеровки
         time = self.duration
         speed = self.length_pool * self.count_pool / self.M_IN_KM / time
         return speed
 
     def get_spent_calories(self) -> float:
         # формула расчета ->  (средняя_скорость + 1.1) * 2 * вес
-        coeff1_swim: float = 1.1
-        coeff2_swim: int = 2
-        calories_spent = (self.get_mean_speed() + coeff1_swim) * coeff2_swim * self.weight
-        return calories_spent
+        coef1_swim: float = 1.1
+        coef2_swim: int = 2
+        return (self.get_mean_speed() + coef1_swim) * coef2_swim * self.weight
 
 
 def read_package(workout_type: str, data: list) -> Training:
