@@ -96,8 +96,8 @@ class SportsWalking(Training):
         min_in_hour: int = 60
         time_in_min = self.duration * min_in_hour
         speed = self.get_mean_speed()
-        calories_spent = (coeff_calorie_1 * self.weight +
-                          (speed**2 // self.height) * coeff_calorie_2
+        calories_spent = (coeff_calorie_1 * self.weight
+                          + (speed**2 // self.height) * coeff_calorie_2
                           * self.weight) * time_in_min
         return calories_spent
 
