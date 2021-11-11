@@ -119,8 +119,7 @@ class Swimming(Training):
         # формула расчета ->  (средняя_скорость + 1.1) * 2 * вес
         COEF1_SWIM: float = 1.1
         COEF2_SWIM: int = 2
-        return (
-                self.get_mean_speed() + COEF1_SWIM) * COEF2_SWIM * self.weight
+        return (self.get_mean_speed() + COEF1_SWIM) * COEF2_SWIM * self.weight
 
 
 def read_package(workout_type: str, data: list) -> Training:
