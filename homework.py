@@ -20,12 +20,17 @@ class InfoMessage:
         )
 
 
-@dataclass
 class Training:
     """Базовый класс тренировки."""
-    action: int
-    duration: float
-    weight: float
+
+    def __init__(self,
+                 action: int,
+                 duration: float,
+                 weight: float,
+                 ) -> None:
+        self.action = action
+        self.duration = duration
+        self.weight = weight
 
     LEN_STEP: float = 0.65
     M_IN_KM: int = 1000
